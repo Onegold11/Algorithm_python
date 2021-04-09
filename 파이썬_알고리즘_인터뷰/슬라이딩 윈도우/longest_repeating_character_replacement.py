@@ -1,0 +1,22 @@
+import collections
+
+
+def characterReplacement(s: str, k: int) -> int:
+    left = right = 0
+    counts = collections.Counter()
+
+    for right in range(1, len(s) + 1):
+        counts[s[right - 1]] += 1
+
+        max_char_n = counts.most_common(1)[0][1]
+
+        if right - left - max_char_n > k:
+            counts[s[left]] -= 1
+            left += 1
+    return right - left
+
+
+if __name__ == '__main__':
+    s = "AAABBC"
+    k = 2
+    print(characterReplacement(s, k))
